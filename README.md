@@ -16,7 +16,7 @@ Os autores deste e-book são:
 
 ## Dependências
 
-Para executar os códigos deste repositório, o ambiente Python precisa conter os pacotes listados em `requirements.txt`. Recomenda-se criar um ambiente Python dedicado para isso. Por exemplo, utilizando [Conda/Miniconda](https://docs.conda.io/en/latest/miniconda.html) no seu terminal,
+Para executar os códigos deste repositório, o ambiente Python precisa conter os pacotes listados em [`requirements.txt`](requirements.txt). Recomenda-se criar um ambiente Python dedicado para isso. Por exemplo, utilizando [Conda/Miniconda](https://docs.conda.io/en/latest/miniconda.html) no seu terminal,
 ```sh
 conda create --name gsp_ebook python=3.7
 ```
