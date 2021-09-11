@@ -29,5 +29,5 @@ git clone https://github.com/gboaviagem/gsp-ebook-exercises.git
 
 Instale todas as dependências:
 ```sh
-python -m pip install -r requirements.txt
+python -m pip install -r gsp-ebook-exercises/requirements.txt
 ```
