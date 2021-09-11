@@ -3,6 +3,8 @@ numpy==1.21.2
 pandas==1.3.2
 scipy==1.7.1
 matplotlib==3.4.3
-pygsp==0.5.1
 networkx==2.6.3
 scikit-learn==0.24.2
+ipykernel==6.4.1
+# Installing PyGSP from the master branch in Github
+git+https://github.com/epfl-lts2/pygsp.git@master

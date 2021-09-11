@@ -5,7 +5,7 @@ import numpy as np
 
 
 def nearest_neighbors(X, n_neighbors=5, algorithm='ball_tree',
-                      mode='distance', allow_self_loops=False):
+                      mode='distance'):
     """Return the nearest neighbors' graph weighted adjacency matrix.
 
     This is a wrapper for the Scikit-learn NearestNeighbors.kneighbors_graph
@@ -33,7 +33,6 @@ def nearest_neighbors(X, n_neighbors=5, algorithm='ball_tree',
         Type of returned matrix: `connectivity` will return the connectivity
         matrix with ones and zeros, and `distance` will return the distances
         between neighbors according to the given metric.
-    allow_self_loops : bool, default=False
 
 	Return
 	------
@@ -41,7 +40,7 @@ def nearest_neighbors(X, n_neighbors=5, algorithm='ball_tree',
     """
     nbrs = NearestNeighbors(
         n_neighbors=n_neighbors, algorithm=algorithm).fit(X)
-    W = nbrs.kneighbors_graph(X, mode=mode, include_self=allow_self_loops)
+    W = nbrs.kneighbors_graph(X, mode=mode)
 
     return W
 
