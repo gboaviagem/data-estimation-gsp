@@ -1,48 +1,41 @@
 """Utility functions for Exercise 2."""
-from sklearn.neighbors import NearestNeighbors
 import networkx as nx
 import numpy as np
+from tqdm import tqdm
 
 
-def nearest_neighbors(X, n_neighbors=5, algorithm='ball_tree',
-                      mode='distance'):
-    """Return the nearest neighbors' graph weighted adjacency matrix.
-
-    This is a wrapper for the Scikit-learn NearestNeighbors.kneighbors_graph
-    method.
+def adj_matrix_from_coords_limited(coords, limit):
+    """Create a nearest-neighbors graph with gaussian weights.
 
     Parameters
     ----------
-    X : np.ndarray
-        Input data 2D array.
-    n_neighbors : int, default=5
-        Number of neighbors to use by default for kneighbors queries.
-    algorithm : {'auto', 'ball_tree', 'kd_tree', 'brute'}, default='auto'
-        Algorithm used to compute the nearest neighbors:
+    coords : array
+        (N, 2) array of coordinates.
+    limit : int
+        Minimum number of neighbors.
 
-            'ball_tree' will use BallTree
+    References
+    ----------
+    SHUMAN, D. I. et al. The emerging field of signal processing on graphs:
+    Extending high-dimensional data analysis to networks and other irregular
+    domains. IEEE Signal Process. Mag., IEEE, v. 30, n. 3, p. 83–98, 2013
 
-            'kd_tree' will use KDTree
-
-            'brute' will use a brute-force search.
-
-            'auto' will attempt to decide the most appropriate algorithm
-            based on the values passed to fit method.
-
-    mode : {'connectivity', 'distance'}, default='connectivity'
-        Type of returned matrix: `connectivity` will return the connectivity
-        matrix with ones and zeros, and `distance` will return the distances
-        between neighbors according to the given metric.
-
-	Return
-	------
-	W : weighted adjacency matrix in CSR (Compressed Sparse Row) format
     """
-    nbrs = NearestNeighbors(
-        n_neighbors=n_neighbors, algorithm=algorithm).fit(X)
-    W = nbrs.kneighbors_graph(X, mode=mode)
+    [N, _] = coords.shape
+    A = np.zeros((N,N))
 
-    return W
+    for	i in tqdm(np.arange(1, N)):
+        dist2i = np.sqrt(
+            (coords[:,0] - coords[i,0]) ** 2 +
+            (coords[:,1] - coords[i,1]) ** 2)
+
+        idx = np.argsort(dist2i)[1:limit+1]
+        for j in idx:
+            distance = np.linalg.norm(coords[i, :] - coords[j, :], ord=2)
+            if A[i, j] == 0:
+                A[i, j] = np.exp(-(distance**2))
+
+    return A + A.transpose()
 
 
 def describe(graph, return_dict=False):
@@ -84,3 +77,15 @@ def describe(graph, return_dict=False):
     else:
         for key, value in d.items():
             print(key + ":", value)
+
+
+def matrix_poly(coeff, M):
+    """Polynomial correctly evaluated at a matrix M.
+
+    The order of the input coefficients follows each term degree: first
+    coefficient is related to degree 0, and so on.
+    """
+    p = np.array([
+        coeff[i] * np.linalg.matrix_power(M, i)
+        for i in range(len(coeff))]).sum(axis=0)
+    return p
