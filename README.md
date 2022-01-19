@@ -1,6 +1,6 @@
 # gsp-ebook-exercises
 
-Este repositório reúne as soluções para dois exercícios do e-book sobre **Processamento de Sinais sobre Grafos** (GSP, _graph signal processing_) das [Notas em Matemática Aplicada, Volume 92/2021](https://proceedings.science/notas-sbmac), publicado pela Sociedade Brasileira de Matemática Aplicada e Computacional – SBMAC.
+Este repositório reúne as soluções para os dois exercícios finais do e-book sobre **Processamento de Sinais sobre Grafos** (GSP, _graph signal processing_) das [Notas em Matemática Aplicada, Volume 92/2021](https://proceedings.science/notas-sbmac), publicado pela Sociedade Brasileira de Matemática Aplicada e Computacional – SBMAC.
 
 Os autores deste e-book são:
 
